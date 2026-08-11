@@ -306,7 +306,7 @@ const CONFIG = {
   coursesCsvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vQDLctodHGBa_uomcxRQacb0BCUtcvzdoi02sI-2RHU_ozrhk6myyXEKcQoOUqI7wrijaFeAP1Cj44D/pub?gid=0&single=true&output=csv',
   credentialsCsvUrl: '',
   countyIndustryCsvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTlHBCJUhDcMbj_nbqSLxtdaHHulIYb0YOA991_zVFzhKnz3Ris26nHeYC3Ld1M9ggv28yWhlR-c1Xk/pub?gid=971722717&single=true&output=csv',
-  fundingCsvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIRpVVuMcugWwqigu4tNkK3YWM3CgNOymT7fooDzzD_n58Y6xzrUpTAxzYKNEchY0wxhkg_pvDNYst/pub?output=csv'
+  fundingCsvUrl: 'https://docs.google.com/spreadsheets/d/e/2PACX-1vTIRpVVuMcugWwqigu4tNkK3YWM3CgNOymT7fooDzzD_n58Y6xzrUpTAxzYKNEchY0wxhkg_pvDNYst/pub?gid=1433265139&single=true&output=csv'
 };
 
 let CTE_DATA = [];
@@ -664,20 +664,15 @@ function clearIndustryFilter(){
 function renderFunding(){
   const el=document.getElementById('fund-grid');
   el.innerHTML=FUNDING_DATA.map(f=>{
-    const credSector=(f.credential_sector||'').trim();
-    const credRow=credSector?('<dt>Credential requirement</dt><dd>Restricted to teachers holding a Designated Subjects Career Technical Education Teaching Credential with '+esc(credSector)+' authorization.</dd>'):'';
-    const credChip=credSector?('<div class="chip-row" style="margin-top:10px"><span class="chip chip-cred" aria-label="Eligibility restricted to teachers holding the '+esc(credSector)+' credential authorization">Credential required: '+esc(credSector)+'</span></div>'):'';
     return '<article class="fund-card">'+
       '<span class="fund-type">'+esc(f.type)+'</span>'+
       '<h3>'+esc(f.grant_name||f.name)+'</h3>'+
       '<dl>'+
         '<dt>Purpose</dt><dd>'+esc(f.purpose)+'</dd>'+
         '<dt>Eligibility</dt><dd>'+esc(f.eligibility)+'</dd>'+
-        credRow+
         '<dt>Funding structure</dt><dd>'+esc(f.funding_note)+'</dd>'+
         '<dt>Timing</dt><dd>'+esc(f.timing)+'</dd>'+
       '</dl>'+
-      credChip+
       '<p style="margin-top:10px"><a href="'+esc(f.link)+'" target="_blank" rel="noopener noreferrer">'+esc(f.link_text||f.linktext)+'<span class="visually-hidden"> (opens in new tab)</span></a></p>'+
     '</article>';
   }).join('');
